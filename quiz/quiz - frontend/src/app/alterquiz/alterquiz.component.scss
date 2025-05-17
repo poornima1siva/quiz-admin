@@ -1,0 +1,143 @@
+.full-page-layout {
+  display: flex;
+  height: 100vh; /* make full height */
+  overflow: hidden; /* prevent full-page scroll */
+  padding: 0;
+  gap: 2rem;
+}
+
+/* Make both halves scroll independently */
+.half {
+  flex: 1 1 48%;
+  min-width: 300px;
+ 
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-bottom: 2.5cm; /*  adds extra scroll space at bottom */
+}
+
+/* Extra spacing for dropdowns and buttons to avoid clipping */
+.left .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.left .field {
+  margin-bottom: 1rem;
+}
+
+.right .header-with-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.custom-card {
+  padding: 1rem;
+}
+
+.list-disc {
+  padding-left: 1.5rem;
+}
+
+.custom-card {
+  .paragraph-container {
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+
+    .icon-button {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+
+
+.icon-button-group {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.question-item {
+  position: relative;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Position the edit/delete button group in top-right corner */
+.question-actions {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+/* Force 2-column fixed grid for options */
+.option-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Smaller, tighter option boxes */
+.option-card {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 0.3rem 0.6rem;         /* Reduced padding */
+  border-radius: 0.375rem;        /* Slightly smaller radius */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); /* Softer shadow */
+  font-size: 0.85rem;             /* Smaller text */
+  min-height: 40px;               /* Slightly smaller height */
+  display: flex;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+
+.correct-answers-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* responsive columns */
+  gap: 0.5rem;
+  list-style: none; /* Remove default bullets */
+  padding-left: 0;
+  margin: 0.75rem 0;
+}
+
+.correct-answers-list li {
+  background-color: #e6fffa;
+  border: 1px solid #b2f5ea;
+  color: #234e52;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  word-break: break-word;
+}
+
+/* Optional: Add a check icon via pseudo-element */
+.correct-answers-list li::before {
+  content: '✔️';
+  font-size: 0.9rem;
+}

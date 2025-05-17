@@ -1,0 +1,81 @@
+<div class="quiz">
+<p-card header="Add Quiz">
+    
+    <div class="card p-fluid" >
+      <form [formGroup]="addQuizForm" id="addQuizForm">
+        
+        <div>
+          <p-ifta-label>Name:</p-ifta-label>
+          <input type="text" pInputText formControlName="name"  class="p-inputtext p-component p-inputtext-fluid" pc68 fdprocessedid="4kx2m8"/>
+        </div>
+        <small color="red">@if(addQuizForm.controls['name'].invalid && addQuizForm.controls['name'].touched)
+          {
+            Please enter a valid Name.
+          }
+        </small>
+        <p-ifta-label>Description:</p-ifta-label>
+        <div class="card flex justify-center">
+          <p-editor formControlName="description" [style]="{height: '150px'}"></p-editor>
+        </div>
+        <small color="red">@if(addQuizForm.controls['description'].invalid && addQuizForm.controls['description'].touched) { Please enter a valid Description. }</small>
+       
+    
+        <p-ifta-label>Category Slug:</p-ifta-label>
+        <p-dropdown formControlName="categoryslug" [options]="categories" placeholder="Select Category"></p-dropdown>
+        <small >
+          @if(addQuizForm.controls['categoryslug'].invalid && addQuizForm.controls['categoryslug'].touched)
+        {
+
+        
+          Please select a Category.
+        }
+        </small>
+        <p-ifta-label>Duration (in minutes):</p-ifta-label>
+<div class="card flex justify-center">
+  <p-inputNumber formControlName="duration" min="1" showButtons="true" step="1" suffix=" min" useGrouping="false" class="w-full" inputId="duration"></p-inputNumber>
+</div>
+<small color="red">@if(addQuizForm.controls['duration'].invalid && addQuizForm.controls['duration'].touched) {
+  Please enter a valid Duration Time.
+}</small>
+
+<p-ifta-label>Total Mark:</p-ifta-label>
+<div class="card flex justify-center">
+  <p-inputNumber formControlName="totalmark" min="1" showButtons="true" suffix=" marks" useGrouping="false" class="w-full" inputId="totalmark"></p-inputNumber>
+</div>
+<small color="red">@if(addQuizForm.controls['totalmark'].invalid && addQuizForm.controls['totalmark'].touched) {
+  Please enter a valid Total Mark.
+}</small>
+
+<p-ifta-label>Total Questions:</p-ifta-label>
+<div class="card flex justify-center">
+  <p-inputNumber formControlName="totalquestion" min="1" showButtons="true" suffix="  Qs" useGrouping="false" class="w-full" inputId="totalquestion"></p-inputNumber>
+</div>
+<small color="red">@if(addQuizForm.controls['totalquestion'].invalid && addQuizForm.controls['totalquestion'].touched) {
+  Please enter the Total number of Questions.
+}</small>
+
+
+        <p-ifta-label>Status:</p-ifta-label>
+        <p-dropdown formControlName="status" [options]="statuses" placeholder="Select Status"></p-dropdown>
+        <small> @if (addQuizForm.controls['status'].invalid && addQuizForm.controls['status'].touched)
+          {
+          Please select a Status.
+          }
+        </small>
+  
+        <p-ifta-label>Level:</p-ifta-label>
+        <p-dropdown formControlName="level" [options]="levels" placeholder="Select Level"></p-dropdown>
+        <small >
+          @if(addQuizForm.controls['level'].invalid && addQuizForm.controls['level'].touched)
+          {
+          Please select a Level.
+          }
+        </small>
+       
+      </form>
+    </div>
+      <p-footer>  <div><p-button (onClick)="onSubmit()">Add</p-button></div>
+        </p-footer>
+  </p-card>
+
+</div>

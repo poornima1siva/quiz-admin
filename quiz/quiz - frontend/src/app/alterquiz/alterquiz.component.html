@@ -1,0 +1,184 @@
+<div class="full-page-layout">
+  <!-- Left half - Edit Quiz -->
+  <div class="half left">
+    <div class="content">
+      <h2>Edit Quiz</h2>
+
+      <form [formGroup]="alterQuizForm">
+        <div class="field">
+          
+          
+          <p-ifta-label for="name">Name</p-ifta-label>
+          <input id="name" type="text" pInputText formControlName="name" />
+        </div>
+
+        
+          <p-ifta-label >Description</p-ifta-label>
+          
+          <p-editor id="description"  formControlName="description" [style]="{height: '120px'}"></p-editor>
+        
+        <div class="field">
+          <p-ifta-label for="category">Category</p-ifta-label>
+          <p-dropdown
+            id="category"
+            formControlName="categoryslug"
+            [options]="categories"
+            placeholder="Select Category"
+          ></p-dropdown>
+        </div>
+
+        <div class="field">
+          <p-ifta-label for="duration">Duration</p-ifta-label>
+          <input id="duration" type="text" pInputText formControlName="duration" />
+        </div>
+
+        <div class="field">
+          <p-ifta-label for="totalmark">Total Mark</p-ifta-label>
+          <input id="totalmark" type="text" pInputText formControlName="totalmark" />
+        </div>
+
+        <div class="field">
+          <p-ifta-label for="totalquestion">Total Questions</p-ifta-label>
+          <input id="totalquestion" type="text" pInputText formControlName="totalquestion" />
+        </div>
+
+        <div class="field">
+          <p-ifta-label for="status">Status</p-ifta-label>
+          <p-dropdown
+            id="status"
+            formControlName="status"
+            [options]="statuses"
+            placeholder="Select Status"
+          ></p-dropdown>
+        </div>
+
+        <div class="field">
+          <p-ifta-label for="level">Level</p-ifta-label>
+          <p-dropdown
+            id="level"
+            formControlName="level"
+            [options]="levels"
+            placeholder="Select Level"
+          ></p-dropdown>
+        </div>
+
+        <div class="button-group">
+          <button pButton type="button" label="Cancel" class="p-button-text" (click)="router.navigate(['/displayquiz'])"></button>
+          <button pButton type="button" label="Save Changes" icon="pi pi-check" (click)="onUpdate()" [disabled]="!alterQuizForm.valid"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right half - Questions -->
+  <div class="half right">
+    <div class="content">
+      <div class="header-with-button">
+        <h2 class="text-xl font-bold mb-6">Questions for this Quiz</h2>
+        <PlusIcon
+         
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-icon-only p-button-sm"
+          (click)="addQuestion(quizId)"
+        ></PlusIcon>
+      </div>
+      <p-card class="custom-card">
+        @if (paginatedQuestions.length === 0) {
+          <p class="text-gray-600">No questions found for this quiz.</p>
+        } @else {
+          
+          <div class="question-header">
+            <div class="font-semibold text-lg">
+            @for ( question of paginatedQuestions; track question ; let i=$index) {
+              <div class="question-item">
+                <!-- Button Group -->
+                <div class="question-actions">
+                  <PencilIcon
+                    icon="pi pi-pencil"
+                    class="p-button-text p-button-sm"
+                    (click)="editQuestion(question._id)"
+                  ></PencilIcon>
+                  <TrashIcon
+                    icon="pi pi-trash"
+                    class="p-button-text p-button-sm p-button-danger"
+                    (click)="deleteQuestion(question._id)"
+                  ></TrashIcon>
+                </div>
+                <div class="mt-2">
+                
+                  <strong>{{ i + 1 + currentPage * rowsPerPage }} . Question Type: {{ question.questionType }}
+
+                      <p [innerHTML]="question.questionText"></p>
+                    </strong>
+                  
+      
+                  @if (question.questionType === 'paragraph') {
+                    <div class="mb-2">
+                      <strong>Paragraph Answer:</strong>
+                      <div class="paragraph-container" [innerHTML]="question.paragraphAnswer"></div>
+
+                    </div>
+                  }
+                  @if (question.questionType !=='paragraph' ){
+      
+                  @if (question.options?.length > 0) {
+                    <div class="mb-2">
+                      <strong>Options:</strong>
+                      <div class="option-card-grid" [ngClass]="{'single-column': isLongOption(question.options)}">
+                        @for (opt of question.options; track opt) {
+                          <div class="option-card" [ngClass]="{'long-option': isTextLong(opt)}" [innerHTML]="opt"></div>
+                        }
+                      </div>
+                      
+                    </div>
+                    
+                  }
+                  @if (question.questionType === 'single') {
+                    @if (question.correctAnswer) {
+                      <div class="">
+                        <strong>Correct Answer:</strong>
+                        <div class="correct-answers-list">
+                        <li [innerHTML]="question.correctAnswer"></li>
+                      </div>
+                      </div>
+                    }
+                  }
+                  
+                @if (question.questionType ==='multiple') {
+                  @if (question.correctAnswers?.length > 0) {
+                    <div class="">
+                      <strong>Correct Answers:</strong>
+                      <ul class="correct-answers-list">
+                        @for ( ans of question.correctAnswers; track ans) {
+                          <li [innerHTML]="ans"></li>
+                        }
+                      </ul>
+                      
+                    </div>
+                  }
+                }
+                  }
+                </div>
+                
+                <br>
+              </div>
+              <br>
+            }
+            
+          </div>
+          </div>
+           <!-- Pagination arrows below -->
+           <p-paginator
+           [rows]="rowsPerPage"
+           [totalRecords]="fetchedQuestions.length"
+           [rowsPerPageOptions]="[5, 10, 20]"
+           (onPageChange)="onPageChange($event)"
+           styleClass="mt-4"
+         ></p-paginator>
+         
+}
+        
+      </p-card>
+    </div>
+  </div>
+</div>

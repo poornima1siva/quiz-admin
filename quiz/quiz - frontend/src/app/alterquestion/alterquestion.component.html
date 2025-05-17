@@ -1,0 +1,142 @@
+<p-card>
+  <form [formGroup]="questionForm" class="p-fluid p-4 form-container">
+    
+     
+    
+  
+    <!-- Question Type Dropdown -->
+    <div class="p-field mb-4">
+      <label for="questionType" class="mb-2 d-block">Question Type:</label>
+      <p-dropdown
+        formControlName="questionType"
+        [options]="questionTypes"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Select Question Type"
+        class="w-full">
+      </p-dropdown>
+  
+      @if (questionForm.get('questionType')?.touched && questionForm.get('questionType')?.invalid) {
+        <small class="text-danger">Question type is required.</small>
+      }
+    </div>
+  
+    <!-- Question Text Editor -->
+    @if (selectedType ()) {
+      <div class="p-field mb-4">
+        <label for="questionText" class="mb-2 d-block">Enter Your Question:</label>
+        <p-editor formControlName="questionText" [style]="{height:'180px'}"></p-editor>
+  
+        @if (questionForm.get('questionText')?.touched && questionForm.get('questionText')?.invalid) {
+          <small class="text-danger">Question text is required.</small>
+        }
+      </div>
+    }
+  
+    <!-- Options Input Section -->
+  @if (selectedType() !== 'paragraph') {
+    <div class="p-field mb-4">
+      <label class="mb-2 d-block">Options:</label>
+  
+      <div formArrayName="options" class="p-fluid">
+        @for (option of optionsArray.controls; track option; let i = $index) {
+          <div class="p-field mb-3">
+            <label class="mb-1 d-block">Option {{ i + 1 }}</label>
+            <p-editor 
+              [formControlName]="i" 
+              [style]="{height:'100px'}"
+              styleClass="option-editor">
+            </p-editor>
+  
+            @if (option?.touched && option?.invalid) {
+              <small class="text-danger">Option {{ i + 1 }} is required.</small>
+            }
+  
+            <div class="mt-2 text-right">
+              <TrashIcon 
+                icon="pi pi-trash" 
+                (click)="removeOption(i)" 
+                
+                label="Remove">
+              </TrashIcon>
+            </div>
+          </div>
+        }
+        <PlusIcon
+       
+        icon="pi pi-plus"
+        (click)="addOption()"
+        class="mt-2">
+      </PlusIcon>
+    </div>
+      </div>
+  
+      
+  }
+  
+  
+    <!-- Correct Answer Selection -->
+    @if (selectedType() !== 'paragraph') {
+      <div class="p-field mb-4">
+        <label class="mb-2 d-block">Select Correct Answer:</label>
+  
+        @for (option of optionsArray.controls; track option; let i = $index) {
+          <div class="p-formgroup-inline align-items-center mb-3">
+  
+            @if (selectedType() === 'single') {
+              <p-radioButton
+                name="correctAnswer"
+                [value]="option.value"
+                formControlName="correctAnswer"
+                class="mr-2">
+              </p-radioButton>
+              <label>{{  'Option ' + (i + 1) }}</label>
+            }
+            
+        @if (questionForm.get('correctAnswer')?.touched && questionForm.get('correctAnswer')?.invalid) {
+          <small class="text-danger">Please select at least one correct answer.</small>
+        }
+  
+            @if (selectedType() === 'multiple') {
+              <p-checkbox
+                [value]="option.value"
+                (onChange)="onCheckboxChange($event,i)"
+                class="mr-2">
+              </p-checkbox>
+              <label>{{  'Option ' + (i + 1) }}</label>
+            }
+  
+          </div>
+        }
+  
+        @if (questionForm.get('correctAnswers')?.touched && questionForm.get('correctAnswers')?.invalid) {
+          <small class="text-danger">Please select at least one correct answer.</small>
+        }
+      </div>
+    }
+  
+    <!-- Paragraph Answer -->
+    @if (selectedType() === 'paragraph') {
+      <div class="p-field mb-4">
+        <label for="paragraphAnswer" class="mb-2 d-block">Expected Answer:</label>
+        <p-editor formControlName="paragraphAnswer" [style]="{height:'180px'}"></p-editor>
+  
+        @if (questionForm.get('paragraphAnswer')?.touched && questionForm.get('paragraphAnswer')?.invalid) {
+          <small class="text-danger">Paragraph answer is required.</small>
+        }
+      </div>
+    }
+  
+    <!-- Submit p-button -->
+    <div class="p-field text-center mt-4">
+      <p-button
+        
+        label="Save Question"
+        icon="pi pi-save"
+        (click)="submitUpdatedQuestion()"
+        class="p-button-success">
+      </p-button>
+    </div>
+  
+  </form>
+  </p-card>

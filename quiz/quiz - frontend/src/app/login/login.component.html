@@ -1,0 +1,45 @@
+<p-card >
+<p-header>
+    <span class="title">Admin Login</span>
+  </p-header>
+    <div class="content-input">
+    <form [formGroup]="adminForm" id="adminForm" (ngSubmit)="login()" class="space-y-6" action="#">
+     <label class="block text-sm/6 font-medium text-gray-900">E-mail</label>
+     <div div class="mt-2">
+        <input type="text" pInputText formControlName="emailOrPhone"  />
+      </div>
+      <small color="red"> 
+        @if(adminForm.controls["emailOrPhone"].invalid && adminForm.controls["emailOrPhone"].touched)
+        {
+          Please enter a valid email.
+        }
+      </small>
+      <p-ifta-label>Password:</p-ifta-label>
+      <div class="flex items-center justify-between">
+        <input type="password" p-password formControlName="password" class="p-inputtext p-component p-element" fdprocessedid="sej9fc" />
+      
+      <small>
+        @if(adminForm.controls['password'].invalid && adminForm.controls['password'].touched)
+        {
+
+          Password must be at least 8 characters with a number and special character.
+        }
+      </small>
+    </div>
+    </form>
+    <p-footer>
+     <div class="content-button">
+      Already have an account?
+      <div>
+    <br>
+      <p-button (click)="login()">Login</p-button>
+    </div> 
+      or<br>
+      <div>
+      <p-button (click)="createacc()">create a new Account</p-button>
+    </div> 
+     </div>
+    </p-footer>
+    </div>
+   
+</p-card>

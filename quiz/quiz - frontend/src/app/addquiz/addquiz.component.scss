@@ -1,0 +1,96 @@
+/* Card Styling */
+.quiz {
+  max-width: 850px;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+  
+  /* Form Styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* Labels */
+  p-ifta-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  /* Input Fields */
+  input[pInputText],
+  textarea[pInputTextarea] {
+    width: 100%;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dcdcdc;
+   
+    box-sizing: border-box;
+  }
+  
+  /* PrimeNG Dropdown Styling */
+  p-dropdown {
+    width: 100%;
+    .p-dropdown {
+      border-radius: 10px;
+      padding: 0.75rem;
+    }
+  }
+  
+  /* Description Field Centering Fix */
+  .card.flex.justify-center {
+    padding: 0;
+  }
+  
+  /* Error Text */
+  small {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: -1rem;
+  }
+  
+  /* Button Styling */
+  p-footer p-button {
+    margin-top: 2rem;
+  }
+  
+  p-button button {
+    background-color: #6c63ff;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+  }
+  
+  p-button button:hover {
+    background-color: #574ce0;
+  }
+  
+  /* Add Questions Text Below Button */
+  p-footer p {
+    text-align: center;
+    margin-top: 1rem;
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    p-card {
+      width: 95%;
+      padding: 1rem;
+    }
+  
+    p-button button {
+      width: 100%;
+    }
+  }
+  

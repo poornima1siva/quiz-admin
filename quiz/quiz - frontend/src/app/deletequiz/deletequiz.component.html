@@ -1,0 +1,42 @@
+<p-card header="Quiz List" styleClass="mb-3">
+  @if (isLoading) {
+    <p>Loading quizzes...</p>
+  } @else {
+    @if (quizzes.length === 0) {
+      <p>No quizzes found.</p>
+    } @else {
+      <p-table [value]="quizzes" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Duration</th>
+            <th>Total Mark</th>
+            <th>Total Questions</th>
+            <th>Status</th>
+            <th>Level</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-quiz>
+          <tr>
+            <td>{{ quiz.name }}</td>
+            <td [innerHTML]="quiz.description"></td>
+            <td>{{ quiz.categoryslug }}</td>
+            <td>{{ quiz.duration }}</td>
+            <td>{{ quiz.totalmark }}</td>
+            <td>{{ quiz.totalquestion }}</td>
+            <td>{{ quiz.status }}</td>
+            <td>{{ quiz.level }}</td>
+            <td>
+              <button pButton icon="pi pi-trash" label="Delete" severity="danger"
+                      (click)="deleteQuiz(quiz._id)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    }
+  }
+</p-card>
