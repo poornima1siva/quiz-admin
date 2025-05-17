@@ -1,6 +1,6 @@
 import { Db, MongoClient } from "mongodb";
 
-const MONGODB_URI = "mongodb+srv://poornimasivagnanam:poorni@elementarcluster.tdf8q.mongodb.net/?retryWrites=true&w=majority&appName=elementarCluster";
+const MONGODB_URI = "your mongodb connection string ";
 export let cachedDb: Db | null = null;
 
 export async function connectToDatabase(): Promise<Db> {
